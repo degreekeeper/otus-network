@@ -1,0 +1,144 @@
+
+!
+! Last configuration change at 22:29:24 EET Mon Sep 21 2020
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW5
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+clock timezone EET 2 0
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+spanning-tree vlan 1000,2001 priority 8192
+spanning-tree vlan 2011 priority 4096
+!
+vlan internal allocation policy ascending
+!
+vlan 2001
+ name VPC1
+!
+vlan 2011
+ name VPC7
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+ no shutdown
+ description LACP SW4-SW5
+ switchport trunk allowed vlan 1000,2001,2011
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/0
+ no shutdown
+ description SW2
+ switchport trunk allowed vlan 1000,2001,2011
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/1
+ no shutdown
+ description SW3
+ switchport trunk allowed vlan 1000,2001,2011
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/2
+ no shutdown
+ description SW4_Port-channel1
+ switchport trunk allowed vlan 1000,2001,2011
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 1 mode passive
+!
+interface Ethernet0/3
+ no shutdown
+ description SW4_Port-channel1
+ switchport trunk allowed vlan 1000,2001,2011
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 1 mode passive
+!
+interface Ethernet1/0
+ no shutdown
+ description R12_UPLINK
+ switchport trunk allowed vlan 1000,2001,2011
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet1/1
+ no shutdown
+ shutdown
+!
+interface Ethernet1/2
+ no shutdown
+ shutdown
+!
+interface Ethernet1/3
+ no shutdown
+ shutdown
+!
+interface Vlan1000
+ no shutdown
+ description MNG
+ ip address 10.201.66.5 255.255.255.0
+ ipv6 address 2001:F:F1:2000::2005/64
+ ipv6 enable
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 10.201.66.1
+!
+!
+ipv6 route ::/0 2001:F:F1:2000::2012
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+!
+!
+end

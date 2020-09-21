@@ -1,0 +1,138 @@
+
+!
+! Last configuration change at 22:07:52 EET Mon Sep 21 2020
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW10
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+clock timezone EET 2 0
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+vlan 2002
+ name VPC8
+!
+vlan 2022
+ name VPC9
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+ no shutdown
+ description LACP_SW9-SW10
+ switchport trunk allowed vlan 1000,2002,2022
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/0
+ no shutdown
+ description Port-Channel1 SW9
+ switchport trunk allowed vlan 1000,2002,2022
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 1 mode passive
+!
+interface Ethernet0/1
+ no shutdown
+ description Port-Channel1 SW9
+ switchport trunk allowed vlan 1000,2002,2022
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 1 mode passive
+!
+interface Ethernet0/2
+ no shutdown
+ description VPC9
+ switchport access vlan 2022
+ switchport mode access
+!
+interface Ethernet0/3
+ no shutdown
+ description R16_UPLINK
+ switchport trunk allowed vlan 1000,2002,2022
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet1/0
+ no shutdown
+ shutdown
+!
+interface Ethernet1/1
+ no shutdown
+ shutdown
+!
+interface Ethernet1/2
+ no shutdown
+ shutdown
+!
+interface Ethernet1/3
+ no shutdown
+ shutdown
+!
+interface Vlan1000
+ no shutdown
+ description MNG
+ ip address 10.202.66.10 255.255.255.0
+ ipv6 address FE80::9 link-local
+ ipv6 address 2001:F:F2:2000::2010/64
+ ipv6 enable
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 10.202.66.1
+!
+!
+ipv6 route ::/0 2001:F:F2:2000::2017
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+!
+!
+end
