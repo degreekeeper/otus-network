@@ -253,7 +253,9 @@ ip nat inside source list 1 pool FOR-NAT overload
 
 2.1. Уходим от анонса серой подсети офиса 10.202.0.0/16 оп EBGP. Вместо неё анонсится будут белые подсети предоставленные провайдером это 52.0.10.0/24 и 52.0.11.0/24. Настроены они будут как ***secondary*** на интерфейсах R18 в сторону R16 и R17. Только эти белые будут анонсировать по EBGP через команду ***network x.x.x.x***. Посмотреть их можно в описании в лабе по распределнию адресного пространства по ссылке:
 
-[ссылка на лабораторную по распределнию адресного пространства]: https://github.com/degreekeeper/otus-network/blob/master/less_12_ip_protocols_v4_v6/IPv4v6.md
+
+
+https://github.com/degreekeeper/otus-network/blob/master/less_12_ip_protocols_v4_v6/IPv4v6.md
 
 
 
@@ -432,7 +434,7 @@ access-list 1 permit 10.202.0.0 0.0.255.255
 
 
 
-![https://github.com/degreekeeper/otus-network/blob/master/less_14_nat_dhcp_ntp/screenshots/Screenshot_9_eigrp_problem_1.jpg]()
+![](https://github.com/degreekeeper/otus-network/blob/master/less_14_nat_dhcp_ntp/screenshots/Screenshot_9_eigrp_problem_1.jpg)
 
 
 
